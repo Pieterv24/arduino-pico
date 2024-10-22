@@ -22,6 +22,7 @@ else()
 endif()
 
 include(pico_sdk_import.cmake)
+include(pico_extras_import.cmake)
 
 project(pico_lib C CXX ASM)
 set(CMAKE_C_STANDARD 11)
@@ -203,6 +204,7 @@ target_link_libraries(pico-${cpu}
     pico_stdlib
     pico_unique_id
     pico_util
+    pico_sleep
     ${xll1}
     tinyusb
     tinyusb_device_unmarked
@@ -321,8 +323,8 @@ elseif(${cpu} MATCHES "rp2350")
 endif()
 foreach(tgt pico ipv4 ipv4-ipv6 ipv4-big ipv4-ipv6-big ${tx})
     add_custom_command(TARGET ${tgt}-${cpu} POST_BUILD
-        COMMAND ar d lib${tgt}-${cpu}.a stdio.c.obj stdio_uart.c.obj stdio_usb.c.obj stdio_usb_descriptors.c.obj pico_malloc.c.obj newlib_interface.c.obj
-        COMMAND ar d lib${tgt}-${cpu}.a btstack_flash_bank.c.obj  # Need to override with our own implementation
+        COMMAND arm-none-eabi-ar d lib${tgt}-${cpu}.a stdio.c.obj stdio_uart.c.obj stdio_usb.c.obj stdio_usb_descriptors.c.obj pico_malloc.c.obj newlib_interface.c.obj
+        COMMAND arm-none-eabi-ar d lib${tgt}-${cpu}.a btstack_flash_bank.c.obj  # Need to override with our own implementation
         COMMAND cp lib${tgt}-${cpu}.a ../../../lib/${cpu}/lib${tgt}.a
     )
 endforeach()

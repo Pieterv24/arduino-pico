@@ -49,3 +49,6 @@
 [submodule "libraries/ESPHost"]
 	path = libraries/ESPHost
 	url = https://github.com/Networking-for-Arduino/ESPHost.git
+[submodule "pico-extras"]
+	path = pico-extras
+	url = https://github.com/raspberrypi/pico-extras.git
